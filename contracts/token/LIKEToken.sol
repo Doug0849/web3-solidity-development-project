@@ -6,6 +6,6 @@ import "./ERC20/ERC20.sol";
 
 contract LIKE is ERC20 {
     constructor() ERC20("LikeCoin", "LIKE") {
-        _mint(msg.sender, 100_000_000 * 1 ether);
+        _mint(msg.sender, 100_000_000 * 1 ether); // 100 million tokens
     }
 }
