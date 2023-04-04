@@ -21,13 +21,13 @@ contract LIKE is ERC20, Ownable {
 
     // check cap when minting new tokens
     function _mint(address account, uint256 amount) internal virtual override onlyOwner {
-        require(totalSupply() + amount <= cap, "Cap exceeded");
-        super._mint(account, amount);
+        require(totalSupply() + amount <= cap, "Cap exceeded"); // 總量加上要鑄造的量，不可超過cap
+        super._mint(account, amount); // super 與意是為了蓋過ERC20.sol的mint函數
     }
 
     // set relvent contracts to mint tokens
     function setRewardsContract(address _newRewardsAddr) external onlyOwner {
-        require(_newRewardsAddr != address(0), "Invalid address");
+        require(_newRewardsAddr != address(0), "Invalid address"); // 合約地址不可為0
         rewardsAddr = _newRewardsAddr;
         emit RewardsChanged(_newRewardsAddr);
     }
