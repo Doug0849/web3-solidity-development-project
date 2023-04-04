@@ -16,7 +16,7 @@ contract LIKE is ERC20, Ownable {
     // initialSupply: total amount of tokens ，代幣總量上限在部署前就須設好，若無限制上限幣價會容易沒有價值
     constructor(uint256 initialSupply, uint256 _cap) ERC20("LikeCoin", "LIKE") {
         cap = _cap; // 部署合約初始化時，就設定最大供給量給變數cap
-        _mint(_msgSender(), initialSupply); // msg.sender也就是部署合約的owner才可以鑄造代幣，引用了Ownable.sol合約
+        _mint(_msgSender(), initialSupply); // msg.sender也就是部署合約的owner才可以鑄造代幣，引用了context.sol合約
     }
 
     // check cap when minting new tokens
