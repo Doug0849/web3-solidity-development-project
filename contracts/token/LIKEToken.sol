@@ -9,6 +9,7 @@ contract LIKE is ERC20, Ownable {
     // address public owner; 在使用自己的錢包地址部署合約時就會是owner了
     address public rewardsAddr; //獎金合約地址
     uint256 public cap; // max supply
+    uint256 public mintPrice = 0.001 ether; // 1 LIKE = 0.001 ETH
 
     // 假設當reward合約有變動時，發出event，log記錄下來
     event RewardsChanged(address indexed newRewards);
@@ -22,7 +23,7 @@ contract LIKE is ERC20, Ownable {
     // check cap when minting new tokens
     function _mint(address account, uint256 amount) internal virtual override onlyOwner {
         require(totalSupply() + amount <= cap, "Cap exceeded"); // 總量加上要鑄造的量，不可超過cap
-        super._mint(account, amount); // super 與意是為了蓋過ERC20.sol的mint函數
+        super._mint(account, amount); // super 語意是為了追蹤最原始的ERC20.sol的mint函數
     }
 
     // set relvent contracts to mint tokens
@@ -30,6 +31,15 @@ contract LIKE is ERC20, Ownable {
         require(_newRewardsAddr != address(0), "Invalid address"); // 合約地址不可為0
         rewardsAddr = _newRewardsAddr;
         emit RewardsChanged(_newRewardsAddr);
+    }
+
+    function freeMint(address account, uint256 amount) public {
+        super._mint(account, amount);
+    }
+
+    function paidMint(address account, uint256 amount) public payable {
+        require(msg.value == mintPrice * amount, "Not enough fund to swap token");
+        super._mint(account, amount);
     }
 
 }
