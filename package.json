@@ -12,6 +12,7 @@
     "@chakra-ui/react": "^2.5.5",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
+    "@openzeppelin/contracts": "^4.8.2",
     "@rainbow-me/rainbowkit": "^0.12.5",
     "ethers": "^5.0.0",
     "framer-motion": "^10.10.0",
